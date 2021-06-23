@@ -1,7 +1,6 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom"; 
+import App from "./App";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+ReactDOM.render(<App />, document.querySelector("main"));
 
-function HelloWorld() {
-    return <div>Hello, World!</div>;
-}
+
