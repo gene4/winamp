@@ -1,3 +1,3 @@
 export default function Animation() {
-    return <div className="animation">eq!!</div>;
+    return <div className="animation"></div>;
 }

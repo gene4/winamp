@@ -1,3 +1,48 @@
 export default function Screen() {
-    return <div className="screen"></div>;
+    return (
+        <div className="screen">
+            <ol>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+                <li>shalom</li>
+            </ol>
+        </div>
+    );
 }
