@@ -234,6 +234,15 @@ body {
     margin-top: 28px;
     background-color: black;
     overflow-y: auto;
+    padding: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
+
+.screen::-webkit-scrollbar {
+    -webkit-appearance: none;
+    image-rendering: pixelated;
+    background-image: url("../scroll-bar.png");
 }
 
 .buttom-panel {
