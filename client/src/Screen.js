@@ -1,48 +1,12 @@
-export default function Screen() {
-    return (
-        <div className="screen">
-            <ol>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-                <li>shalom</li>
-            </ol>
-        </div>
-    );
+import Welcome from "./Welcome";
+import Content from "./Content";
+
+export default function Screen({ userId }) {
+    console.log("userId in screen", userId);
+
+    if (!userId) {
+        return <Welcome />;
+    } else {
+        return <Content />;
+    }
 }

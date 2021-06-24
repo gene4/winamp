@@ -239,12 +239,6 @@ body {
     letter-spacing: 2px;
 }
 
-.screen::-webkit-scrollbar {
-    -webkit-appearance: none;
-    image-rendering: pixelated;
-    background-image: url("../scroll-bar.png");
-}
-
 .buttom-panel {
     width: 410px;
     display: flex;
@@ -267,4 +261,36 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+}
+
+.registration {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content {
+    position: relative;
+    width: 385px;
+    height: 333px;
+    margin-left: 15px;
+    margin-top: 28px;
+    background-color: black;
+    overflow-y: auto;
+    padding: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
+
+.content::-webkit-scrollbar {
+    /* -webkit-appearance: none; */
+    image-rendering: pixelated;
+    background-image: url("../scroll-bar.png");
+    height: 100%;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background-image: url("../scroll-bar-button.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 45px;
+    width: 20px;
 }
