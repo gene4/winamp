@@ -267,7 +267,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.content {
+.search {
     position: relative;
     width: 385px;
     height: 333px;
@@ -275,22 +275,47 @@ body {
     margin-top: 28px;
     background-color: black;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: auto;
     font-family: Arial, Helvetica, sans-serif;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
-.content::-webkit-scrollbar {
+.search::-webkit-scrollbar {
     /* -webkit-appearance: none; */
     image-rendering: pixelated;
     background-image: url("../scroll-bar.png");
     height: 100%;
 }
 
-.content::-webkit-scrollbar-thumb {
+.search::-webkit-scrollbar-thumb {
     background-image: url("../scroll-bar-button.png");
     background-repeat: no-repeat;
     background-size: contain;
     height: 45px;
     width: 20px;
+}
+
+.search-input {
+    position: fixed;
+    border: none;
+    background-color: black;
+    border-bottom: 1px rgb(0, 255, 0) solid;
+    color: rgb(0, 255, 0);
+}
+
+.tracks {
+    scroll-margin-top: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+
+li:focus {
+    background-color: blue;
+}
+
+li::marker {
+    text-align: center;
 }

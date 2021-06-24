@@ -35,11 +35,6 @@ app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
-SC.initialize({
-    client_id: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
-});
-
 ///////////////////////////
 //////// Routes //////
 /////////////////////////
