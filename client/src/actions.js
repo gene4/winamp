@@ -10,7 +10,8 @@ export const updateCurrentTrack = async (
     trackId,
     user,
     title,
-    duration
+    duration,
+    artwork_url
 ) => {
     return {
         type: "UPDATE_CURRENT_TRACKS",
@@ -19,5 +20,6 @@ export const updateCurrentTrack = async (
         user: user,
         title: title,
         duration: duration,
+        artwork_url: artwork_url,
     };
 };

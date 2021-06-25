@@ -55,13 +55,15 @@ export default function Search() {
 
     return (
         <div className="search">
-            <input
-                label="Search a track!"
-                className="search-input"
-                placeholder="Search a track!"
-                onChange={(e) => setSearchInput(e.target.value)}
-                defaultValue={searchInput}
-            ></input>
+            <div>
+                <p>Search a track!</p>
+                <input
+                    className="search-input"
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    defaultValue={searchInput}
+                ></input>
+            </div>
+            <section className="boarder">block</section>
             <ol className="tracks">
                 {tracks &&
                     tracks.map((track, index) => (
@@ -74,7 +76,8 @@ export default function Search() {
                                         track.id,
                                         track.user.username,
                                         track.title,
-                                        track.duration
+                                        track.duration,
+                                        track.artwork_url
                                     )
                                 )
                             }

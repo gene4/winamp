@@ -42,12 +42,27 @@ body {
     margin-top: 10px;
 }
 
-.ticker {
-    width: 238px;
-    height: 20px;
+.ticker-area {
+    width: 233px;
+    height: 17px;
     background-color: black;
-    margin-left: 5px;
-    margin-top: 11px;
+    margin-left: 7px;
+    margin-top: 13px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker-area p {
+    margin: 0px;
+    animation: ticker 10s infinite linear;
+    position: absolute;
+    left: 50%;
+}
+
+@keyframes ticker {
+    100% {
+        transform: translateX(-150%);
+    }
 }
 
 .kbps {
@@ -268,6 +283,8 @@ body {
 }
 
 .search {
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 385px;
     height: 333px;
@@ -279,6 +296,18 @@ body {
     padding: auto;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
+}
+
+.search div {
+    display: flex;
+    position: fixed;
+    background-color: black;
+    width: 370px;
+    height: 15px;
+}
+
+.search div p {
+    margin: 0;
 }
 
 .search::-webkit-scrollbar {
@@ -297,7 +326,8 @@ body {
 }
 
 .search-input {
-    position: fixed;
+    margin-left: 5px;
+
     border: none;
     background-color: black;
     border-bottom: 1px rgb(0, 255, 0) solid;
@@ -312,10 +342,18 @@ input:focus {
     outline: none;
 }
 
-li:focus {
+li:focus-visible {
     background-color: blue;
 }
 
 li::marker {
     text-align: center;
+}
+
+.artwork {
+    image-rendering: pixelated;
+    width: 139px;
+    height: 64px;
+    object-fit: none;
+    border: hidden;
 }

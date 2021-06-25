@@ -14,6 +14,7 @@ export default function reducers(state = {}, action) {
             user: action.user,
             title: action.title,
             duration: action.duration,
+            artwork_url: action.artwork_url,
         };
     }
 

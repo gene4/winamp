@@ -1,5 +1,5 @@
 import Animation from "./Animation";
-import Ticker from "./Ticker";
+import TickerArea from "./TickerArea";
 import { useSelector, useDispatch } from "react-redux";
 const secret = require("../../secrets.json").ClientId;
 var SC = require("soundcloud");
@@ -10,13 +10,10 @@ export default function Header() {
     const tracks = useSelector((state) => state.tracks);
     const index = useSelector((state) => state.index);
     const trackId = useSelector((state) => state.trackId);
-    const user = useSelector((state) => state.user);
-    const title = useSelector((state) => state.title);
     const duration = useSelector((state) => state.duration);
     let [player, setPlayer] = useState();
     const [trackTime, setTrackTime] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [panNode, setPanNode] = useState();
 
     const dispatch = useDispatch();
 
@@ -41,6 +38,7 @@ export default function Header() {
     );
 
     useEffect(() => {
+        console.log();
         if (player && player.isPlaying) {
             const interval = setInterval(function () {
                 setTrackTime(player.currentTime());
@@ -49,43 +47,40 @@ export default function Header() {
                 }
             }, 100);
         }
-    }, [isPlaying]);
-
-    const creatPanNode = () => {
-        var audioCtx = new window.AudioContext();
-        console.log("audioCtx", audioCtx);
-        setPanNode(audioCtx.createStereoPanner());
-        // panNode.connect(audioCtx.destination);
-        console.log("panNode", panNode);
-        panNode.pan.value = -1;
-        // if (audioCtx && panNode) {
-        //     audioCtx.connect(panNode);
-        //
-        // }
-    };
+    }, [isPlaying, trackTime]);
 
     const play = (trackId) => {
+        console.log();
         if (player.isDead()) {
             SC.stream(`/tracks/${trackId}`).then(function (player) {
                 setPlayer(player);
                 player.play();
-                creatPanNode();
                 setIsPlaying(true);
                 return;
             });
         }
         player.play();
-        console.log("player:", player);
-        creatPanNode();
+        // var newStream = new MediaStream(tracks);
+        // console.log("player:", player);
+        // var audioCtx = new window.AudioContext();
+        // console.log("audioCtx", audioCtx);
+        // var audioSourceNode = audioCtx.createMediaStreamSource(newStream);
+        // var panNode = audioCtx.createStereoPanner();
+        // console.log("panNode", panNode);
+        // audioSourceNode.connect(panNode);
+        // panNode.connect(audioCtx.destination);
+        // panNode.pan.value = -1;
+
         setIsPlaying(true);
     };
 
     const next = (tracks, index) => {
+        setTrackTime(0);
         let newTrack = tracks[index + 1];
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
             player.play();
-            creatPanNode();
+
             setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
@@ -105,7 +100,7 @@ export default function Header() {
             console.log("player at play", player);
             setPlayer(player);
             player.play();
-            creatPanNode();
+            setTrackTime(0);
             setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
@@ -143,7 +138,7 @@ export default function Header() {
             <img className="winamp-bar" src="../winamp.png"></img>
             <div className="top-upper-pannel">
                 <Animation />
-                <Ticker />
+                <TickerArea />
             </div>
 
             <p className="kbps">192</p>
@@ -159,10 +154,6 @@ export default function Header() {
                 step="0.01"
             ></input>
             <input
-                onChange={(e) => {
-                    panNode.pan.value = e.target.value;
-                    console.log("panNode.pan.value", panNode.pan.value);
-                }}
                 className="pan-bar"
                 title="pan-bar"
                 type="range"
@@ -199,6 +190,7 @@ export default function Header() {
                     onClick={() => {
                         player.kill();
                         setIsPlaying(false);
+                        console.log("TrackTime", trackTime);
                     }}
                 ></div>
                 <div className="next" onClick={() => next(tracks, index)}></div>
