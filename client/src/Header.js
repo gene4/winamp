@@ -1,9 +1,10 @@
 import Animation from "./Animation";
 import Ticker from "./Ticker";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 const secret = require("../../secrets.json").ClientId;
 var SC = require("soundcloud");
 import { useEffect, useState } from "react";
+import { updateCurrentTrack } from "./actions";
 
 export default function Header() {
     const tracks = useSelector((state) => state.tracks);
@@ -12,7 +13,11 @@ export default function Header() {
     const user = useSelector((state) => state.user);
     const title = useSelector((state) => state.title);
     const duration = useSelector((state) => state.duration);
-    const [player, setPlayer] = useState();
+    let [player, setPlayer] = useState();
+    const [trackTime, setTrackTime] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SC.initialize({
@@ -20,29 +25,98 @@ export default function Header() {
         });
     }, []);
 
+    useEffect(
+        () => {
+            if (trackId) {
+                SC.stream(`/tracks/${trackId}`).then(function (player) {
+                    setPlayer(player);
+                    player.play();
+                    setIsPlaying(true);
+                });
+            }
+        },
+        [trackId],
+        [player]
+    );
+
     useEffect(() => {
-        if (trackId) {
-            SC.stream(`/tracks/${trackId}`).then(function (player) {
-                console.log("player at play", player);
-                setPlayer(player);
-                player.play();
-            });
+        console.log("isPlaying", isPlaying);
+        if (player && player.isPlaying) {
+            const interval = setInterval(function () {
+                setTrackTime(player.currentTime());
+                if (!player.isPlaying()) {
+                    clearInterval(interval);
+                }
+            }, 100);
         }
-    }, [trackId]);
+    }, [isPlaying]);
 
     const play = (trackId) => {
-        SC.stream(`/tracks/${trackId}`).then(function (player) {
-            console.log("player at play", player);
-            setPlayer(player);
-            player.play();
-        });
+        if (player.isDead()) {
+            SC.stream(`/tracks/${trackId}`).then(function (player) {
+                setPlayer(player);
+                player.play();
+                setIsPlaying(true);
+                return;
+            });
+        }
+        player.play();
+        setIsPlaying(true);
     };
 
     const next = (tracks, index) => {
-        SC.stream(`/tracks/${tracks[index + 1]}`).then(function (player) {
+        let newTrack = tracks[index + 1];
+        SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
+            setPlayer(player);
+            player.play();
+            setIsPlaying(true);
+            dispatch(
+                updateCurrentTrack(
+                    index + 1,
+                    newTrack.id,
+                    newTrack.user.username,
+                    newTrack.title,
+                    newTrack.duration
+                )
+            );
+        });
+    };
+
+    const previous = (tracks, index) => {
+        let newTrack = tracks[index - 1];
+        SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             console.log("player at play", player);
             setPlayer(player);
             player.play();
+            setIsPlaying(true);
+            dispatch(
+                updateCurrentTrack(
+                    index - 1,
+                    newTrack.id,
+                    newTrack.user.username,
+                    newTrack.title,
+                    newTrack.duration
+                )
+            );
+        });
+    };
+
+    const shuffle = (tracks) => {
+        const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+
+        SC.stream(`/tracks/${randomTrack.id}`).then(function (player) {
+            setPlayer(player);
+            player.play();
+            setIsPlaying(true);
+            dispatch(
+                updateCurrentTrack(
+                    tracks.indexOf(randomTrack),
+                    randomTrack.id,
+                    randomTrack.user.username,
+                    randomTrack.title,
+                    randomTrack.duration
+                )
+            );
         });
     };
 
@@ -54,15 +128,18 @@ export default function Header() {
                 <Animation />
                 <Ticker />
             </div>
+
             <p className="kbps">192</p>
             <p className="khz">44</p>
+
             <input
+                onChange={(e) => player.setVolume(e.target.value)}
                 className="volume-bar"
                 title="volume-bar"
                 type="range"
                 min="0"
-                max="100"
-                step="1"
+                max="1"
+                step="0.01"
             ></input>
             <input
                 className="pan-bar"
@@ -73,20 +150,37 @@ export default function Header() {
                 step="1"
             ></input>
             <input
+                onChange={(e) => player.seek(e.target.value)}
                 className="progress-bar"
                 title="progress-bar"
                 type="range"
                 min="0"
-                max="100"
-                step="1"
+                max={`${duration}`}
+                step={`${duration / duration}`}
+                value={trackTime}
             ></input>
             <div className="player-control-panel">
-                <div className="previous"></div>
+                <div
+                    className="previous"
+                    onClick={() => previous(tracks, index)}
+                ></div>
                 <div className="play" onClick={() => play(trackId)}></div>
-                <div className="pause" onClick={() => player.pause()}></div>
-                <div className="stop" onClick={() => player.kill()}></div>
+                <div
+                    className="pause"
+                    onClick={() => {
+                        player.pause();
+                        setIsPlaying(false);
+                    }}
+                ></div>
+                <div
+                    className="stop"
+                    onClick={() => {
+                        player.kill();
+                        setIsPlaying(false);
+                    }}
+                ></div>
                 <div className="next" onClick={() => next(tracks, index)}></div>
-                <div className="shuffle"></div>
+                <div className="shuffle" onClick={() => shuffle(tracks)}></div>
             </div>
         </div>
     );

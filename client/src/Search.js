@@ -53,14 +53,6 @@ export default function Search() {
         return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     };
 
-    const playAndTransmit = (trackId, user, title, duration) => {
-        // SC.stream(`/tracks/${trackId}`).then(function (player) {
-        //     player.play();
-
-        // });
-        dispatch(updateCurrentTrack(trackId, user, title, duration));
-    };
-
     return (
         <div className="search">
             <input
@@ -76,12 +68,14 @@ export default function Search() {
                         <li
                             className="track"
                             onClick={() =>
-                                playAndTransmit(
-                                    index,
-                                    track.id,
-                                    track.user.username,
-                                    track.title,
-                                    track.duration
+                                dispatch(
+                                    updateCurrentTrack(
+                                        index,
+                                        track.id,
+                                        track.user.username,
+                                        track.title,
+                                        track.duration
+                                    )
                                 )
                             }
                             key={index}
