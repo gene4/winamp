@@ -16,6 +16,7 @@ export default function Header() {
     let [player, setPlayer] = useState();
     const [trackTime, setTrackTime] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [panNode, setPanNode] = useState();
 
     const dispatch = useDispatch();
 
@@ -40,7 +41,6 @@ export default function Header() {
     );
 
     useEffect(() => {
-        console.log("isPlaying", isPlaying);
         if (player && player.isPlaying) {
             const interval = setInterval(function () {
                 setTrackTime(player.currentTime());
@@ -51,16 +51,32 @@ export default function Header() {
         }
     }, [isPlaying]);
 
+    const creatPanNode = () => {
+        var audioCtx = new window.AudioContext();
+        console.log("audioCtx", audioCtx);
+        setPanNode(audioCtx.createStereoPanner());
+        // panNode.connect(audioCtx.destination);
+        console.log("panNode", panNode);
+        panNode.pan.value = -1;
+        // if (audioCtx && panNode) {
+        //     audioCtx.connect(panNode);
+        //
+        // }
+    };
+
     const play = (trackId) => {
         if (player.isDead()) {
             SC.stream(`/tracks/${trackId}`).then(function (player) {
                 setPlayer(player);
                 player.play();
+                creatPanNode();
                 setIsPlaying(true);
                 return;
             });
         }
         player.play();
+        console.log("player:", player);
+        creatPanNode();
         setIsPlaying(true);
     };
 
@@ -69,6 +85,7 @@ export default function Header() {
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
             player.play();
+            creatPanNode();
             setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
@@ -88,6 +105,7 @@ export default function Header() {
             console.log("player at play", player);
             setPlayer(player);
             player.play();
+            creatPanNode();
             setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
@@ -120,7 +138,6 @@ export default function Header() {
         });
     };
 
-    console.log("track in header", trackId, user, title, duration);
     return (
         <div className="header">
             <img className="winamp-bar" src="../winamp.png"></img>
@@ -142,12 +159,17 @@ export default function Header() {
                 step="0.01"
             ></input>
             <input
+                onChange={(e) => {
+                    panNode.pan.value = e.target.value;
+                    console.log("panNode.pan.value", panNode.pan.value);
+                }}
                 className="pan-bar"
                 title="pan-bar"
                 type="range"
-                min="0"
-                max="100"
-                step="1"
+                min="-1"
+                max="1"
+                step="0.01"
+                defaultValue="0"
             ></input>
             <input
                 onChange={(e) => player.seek(e.target.value)}
