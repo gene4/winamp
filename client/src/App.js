@@ -1,28 +1,28 @@
 import axios from "./axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Header from "./Header";
 import Eq from "./Eq";
 import Screen from "./Screen";
 import ButtomLeft from "./ButtomLeft";
 import ButtomRight from "./ButtumRight";
+import { useDispatch } from "react-redux";
+import { setUserId } from "./actions";
 
 export default function App() {
-    const [userId, setUserId] = useState();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get("/user/id.json").then(function ({ data }) {
-            setUserId(data.userId);
+            dispatch(setUserId(data.userId));
         });
     }, []);
-
-    console.log("userId in app", userId);
 
     return (
         <div className="winamp">
             <Header />
             <Eq />
             <div className="screen-container">
-                <Screen userId={userId} />
+                <Screen />
             </div>
 
             <div className="buttom-panel">

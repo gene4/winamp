@@ -50,6 +50,8 @@ body {
     margin-top: 13px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .ticker-area p {
@@ -144,7 +146,7 @@ body {
     position: relative;
     display: flex;
     margin-left: 26px;
-    top: -35px;
+    top: -42px;
     align-items: center;
     z-index: 2;
 }
@@ -212,10 +214,17 @@ body {
     width: 65px;
     height: 25px;
     background-repeat: no-repeat;
-    margin-left: 100px;
+    margin-left: 60px;
 }
 
-.shuffle:no-button {
+.sc {
+    margin-left: 10px;
+    image-rendering: pixelated;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.shuffle:active {
     background-image: url("../shuffle-selected.png");
     background-size: cover;
     background-size: contain;
@@ -300,18 +309,18 @@ body {
 
 .search div {
     display: flex;
-    position: fixed;
+    justify-content: center;
     background-color: black;
     width: 370px;
-    height: 15px;
+    height: 20px;
+    font-size: 18px;
 }
 
 .search div p {
     margin: 0;
 }
 
-.search::-webkit-scrollbar {
-    /* -webkit-appearance: none; */
+/* .search::-webkit-scrollbar {
     image-rendering: pixelated;
     background-image: url("../scroll-bar.png");
     height: 100%;
@@ -323,31 +332,33 @@ body {
     background-size: contain;
     height: 45px;
     width: 20px;
-}
+} */
 
 .search-input {
-    margin-left: 5px;
-
+    margin-left: 8px;
     border: none;
     background-color: black;
     border-bottom: 1px rgb(0, 255, 0) solid;
     color: rgb(0, 255, 0);
+    font-size: 18px;
 }
 
 .tracks {
     scroll-margin-top: 20px;
+    margin-top: 12px;
+    padding-left: 32px;
+}
+
+.track {
+    overflow-wrap: normal;
+}
+
+.blue {
+    background-color: blue;
 }
 
 input:focus {
     outline: none;
-}
-
-li:focus-visible {
-    background-color: blue;
-}
-
-li::marker {
-    text-align: center;
 }
 
 .artwork {
@@ -356,4 +367,76 @@ li::marker {
     height: 64px;
     object-fit: none;
     border: hidden;
+}
+
+.registration,
+.login {
+    position: relative;
+    width: 385px;
+    height: 333px;
+    margin-left: 15px;
+    margin-top: 28px;
+    background-color: black;
+    overflow-y: auto;
+    padding: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
+
+form {
+    margin: 0;
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 0px;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+form p {
+    margin: 0;
+}
+
+form div,
+p.member {
+    margin-top: 8px;
+}
+
+form div {
+    display: flex;
+    align-items: center;
+}
+
+form div input,
+.login input {
+    margin-left: 8px;
+    border: none;
+    background-color: black;
+    border-bottom: 1px rgb(0, 255, 0) solid;
+    color: rgb(0, 255, 0);
+    width: 200px;
+}
+
+form button {
+    cursor: pointer;
+    width: 70px;
+    border: none;
+    background-color: black;
+    text-align: left;
+    color: rgb(0, 255, 0);
+    font-size: 20px;
+    padding: 0;
+    margin-top: 8px;
+}
+
+.here {
+    color: rgb(0, 255, 0);
+}
+
+input:-internal-autofill-selected {
+    appearance: none;
+    background-color: rgb(0, 0, 0);
+
+    color: rgb(0, 255, 0);
 }

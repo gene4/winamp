@@ -1,8 +1,9 @@
 import Welcome from "./Welcome";
 import Content from "./Content";
+import { useSelector } from "react-redux";
 
-export default function Screen({ userId }) {
-    console.log("userId in screen", userId);
+export default function Screen() {
+    const userId = useSelector((state) => state.userId);
 
     if (!userId) {
         return <Welcome />;

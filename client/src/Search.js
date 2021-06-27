@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 const secret = require("../../secrets.json").ClientId;
 var SC = require("soundcloud");
-import { useDispatch } from "react-redux";
-import { updateTracks, updateCurrentTrack } from "./actions";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTracks, updateCurrentTrack, setListElements } from "./actions";
 
 export default function Search() {
-    const [tracks, setTracks] = useState();
     const [searchInput, setSearchInput] = useState();
     const [error, setError] = useState(false);
+
+    const listElements = useSelector((state) => state.listElements);
+    const tracks = useSelector((state) => state.tracks);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,8 +33,11 @@ export default function Search() {
                             console.log("elseifblock");
                             // setError(true);
                         } else {
-                            // setError(false);
-                            setTracks(tracks);
+                            dispatch(
+                                setListElements(
+                                    document.getElementsByClassName("track")
+                                )
+                            );
                             dispatch(updateTracks(tracks));
                         }
                     }
@@ -53,23 +59,32 @@ export default function Search() {
         return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     };
 
+    const setBeckground = (index) => {
+        for (let i = 0; i < listElements.length; i++) {
+            const element = listElements[i];
+            element.classList.remove("blue");
+        }
+
+        listElements[index].classList.add("blue");
+    };
+
     return (
         <div className="search">
             <div>
-                <p>Search a track!</p>
+                <p>search a track!</p>
                 <input
                     className="search-input"
                     onChange={(e) => setSearchInput(e.target.value)}
                     defaultValue={searchInput}
                 ></input>
             </div>
-            <section className="boarder">block</section>
+
             <ol className="tracks">
                 {tracks &&
                     tracks.map((track, index) => (
                         <li
                             className="track"
-                            onClick={() =>
+                            onClick={() => {
                                 dispatch(
                                     updateCurrentTrack(
                                         index,
@@ -77,10 +92,12 @@ export default function Search() {
                                         track.user.username,
                                         track.title,
                                         track.duration,
-                                        track.artwork_url
+                                        track.artwork_url,
+                                        track.permalink_url
                                     )
-                                )
-                            }
+                                );
+                                setBeckground(index);
+                            }}
                             key={index}
                         >
                             {track.user.username} - {track.title}{" "}

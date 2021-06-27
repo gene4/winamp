@@ -15,6 +15,22 @@ export default function reducers(state = {}, action) {
             title: action.title,
             duration: action.duration,
             artwork_url: action.artwork_url,
+            permalink_url: action.permalink_url,
+        };
+    } else if (action.type == "SET_USER_ID") {
+        newState = {
+            ...state,
+            userId: action.payload,
+        };
+    } else if (action.type == "SET_PLAYER") {
+        newState = {
+            ...state,
+            player: action.payload,
+        };
+    } else if (action.type == "SET_LIST_ELEMENTS") {
+        newState = {
+            ...state,
+            listElements: action.payload,
         };
     }
 

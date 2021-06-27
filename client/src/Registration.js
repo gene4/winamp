@@ -44,36 +44,38 @@ export default function Registration() {
             {error && <p>Oupsi! Something went wrong, try again.</p>}
 
             <form onSubmit={(event) => handleSubmit(event)}>
-                <h1>Register</h1>
-                <input
-                    name={"firstName"}
-                    placeholder={"First Name"}
-                    onChange={handleChange}
-                />
-                <input
-                    name={"lastName"}
-                    placeholder={"Last Name"}
-                    onChange={handleChange}
-                />
-                <input
-                    name={"email"}
-                    placeholder={"email"}
-                    type={"email"}
-                    onChange={handleChange}
-                />
-                <input
-                    name={"password"}
-                    placeholder={"password"}
-                    type={"password"}
-                    onChange={handleChange}
-                />
-                <button type={"submit"}>Register</button>
+                <p>1. please register!</p>
+                <div>
+                    <label>2. first name</label>
+                    <input name={"firstName"} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>3. last name</label>
+                    <input name={"lastName"} onChange={handleChange} />
+                </div>
+                <div>
+                    <label>4. email</label>
+                    <input
+                        name={"email"}
+                        type={"email"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label>5. password</label>
+                    <input
+                        name={"password"}
+                        type={"password"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button type={"submit"}>6. register!</button>
                 <p className="member">
-                    Already a member?! Click{" "}
+                    7. already a member?! click{" "}
                     <Link className="here" to="/login">
                         here
                     </Link>{" "}
-                    to Login!
+                    to login!
                 </p>
             </form>
         </div>

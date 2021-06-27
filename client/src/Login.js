@@ -1,5 +1,5 @@
 import axios from "./axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -41,26 +41,30 @@ export default function Login() {
         <div className="login">
             {error && <p>Oupsi! Something went wrong, try again.</p>}
 
-            <form className="login" onSubmit={(event) => handleLogin(event)}>
-                <h1>Login</h1>
-                <input
-                    name={"email"}
-                    placeholder={"email"}
-                    type={"email"}
-                    onChange={handleChange}
-                />
-                <input
-                    name={"password"}
-                    placeholder={"password"}
-                    type={"password"}
-                    onChange={handleChange}
-                />
-                <button type={"submit"}>Login</button>
+            <form onSubmit={(event) => handleLogin(event)}>
+                <p>1. login</p>
+                <div>
+                    <label>2. email</label>
+                    <input
+                        name={"email"}
+                        type={"email"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label>3. password</label>
+                    <input
+                        name={"password"}
+                        type={"password"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button type={"submit"}>4. login</button>
                 <p className="member">
-                    Click{" "}
+                    5. click{" "}
                     <Link className="here" to="/">
                         {" "}
-                        here{" "}
+                        here
                     </Link>{" "}
                     to register!
                 </p>

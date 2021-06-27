@@ -11,9 +11,13 @@ export default function Header() {
     const index = useSelector((state) => state.index);
     const trackId = useSelector((state) => state.trackId);
     const duration = useSelector((state) => state.duration);
-    let [player, setPlayer] = useState();
+    const permalinkUrl = useSelector((state) => state.permalink_url);
+    const listElements = useSelector((state) => state.listElements);
+
+    const [kbps, setKbps] = useState(`  -`);
+    const [khz, setKhz] = useState(`  -`);
     const [trackTime, setTrackTime] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [player, setPlayer] = useState();
 
     const dispatch = useDispatch();
 
@@ -26,10 +30,16 @@ export default function Header() {
     useEffect(
         () => {
             if (trackId) {
+                if (player) {
+                    player.kill();
+                    setTrackTime(0);
+                }
                 SC.stream(`/tracks/${trackId}`).then(function (player) {
                     setPlayer(player);
                     player.play();
-                    setIsPlaying(true);
+                    startCounting(player);
+                    setKbps("128");
+                    setKhz("96");
                 });
             }
         },
@@ -37,102 +47,98 @@ export default function Header() {
         [player]
     );
 
-    useEffect(() => {
-        console.log();
-        if (player && player.isPlaying) {
-            const interval = setInterval(function () {
-                setTrackTime(player.currentTime());
-                if (!player.isPlaying()) {
-                    clearInterval(interval);
+    const startCounting = (player) => {
+        const interval = setInterval(function () {
+            setTrackTime(player.currentTime());
+            if (!player.isPlaying()) {
+                if (!player) {
+                    setTrackTime(0);
                 }
-            }, 100);
-        }
-    }, [isPlaying, trackTime]);
+                clearInterval(interval);
+            }
+        }, 10);
+    };
 
     const play = (trackId) => {
-        console.log();
         if (player.isDead()) {
             SC.stream(`/tracks/${trackId}`).then(function (player) {
                 setPlayer(player);
                 player.play();
-                setIsPlaying(true);
                 return;
             });
         }
         player.play();
-        // var newStream = new MediaStream(tracks);
-        // console.log("player:", player);
-        // var audioCtx = new window.AudioContext();
-        // console.log("audioCtx", audioCtx);
-        // var audioSourceNode = audioCtx.createMediaStreamSource(newStream);
-        // var panNode = audioCtx.createStereoPanner();
-        // console.log("panNode", panNode);
-        // audioSourceNode.connect(panNode);
-        // panNode.connect(audioCtx.destination);
-        // panNode.pan.value = -1;
-
-        setIsPlaying(true);
+        startCounting(player);
     };
 
     const next = (tracks, index) => {
+        setBeckground(index + 1);
+        player.kill();
         setTrackTime(0);
         let newTrack = tracks[index + 1];
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
-            player.play();
-
-            setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
                     index + 1,
                     newTrack.id,
                     newTrack.user.username,
                     newTrack.title,
-                    newTrack.duration
+                    newTrack.duration,
+                    newTrack.artwork_url
                 )
             );
         });
     };
 
     const previous = (tracks, index) => {
+        setBeckground(index - 1);
+        player.kill();
+        setTrackTime(0);
         let newTrack = tracks[index - 1];
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
-            console.log("player at play", player);
             setPlayer(player);
-            player.play();
-            setTrackTime(0);
-            setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
                     index - 1,
                     newTrack.id,
                     newTrack.user.username,
                     newTrack.title,
-                    newTrack.duration
+                    newTrack.duration,
+                    newTrack.artwork_url
                 )
             );
         });
     };
 
     const shuffle = (tracks) => {
+        player.kill();
+        setTrackTime(0);
         const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-
+        setBeckground(tracks.indexOf(randomTrack));
         SC.stream(`/tracks/${randomTrack.id}`).then(function (player) {
             setPlayer(player);
-            player.play();
-            setIsPlaying(true);
             dispatch(
                 updateCurrentTrack(
                     tracks.indexOf(randomTrack),
                     randomTrack.id,
                     randomTrack.user.username,
                     randomTrack.title,
-                    randomTrack.duration
+                    randomTrack.duration,
+                    randomTrack.artwork_url
                 )
             );
         });
     };
 
+    const setBeckground = (index) => {
+        for (let i = 0; i < listElements.length; i++) {
+            const element = listElements[i];
+            element.classList.remove("blue");
+        }
+
+        listElements[index].classList.add("blue");
+    };
     return (
         <div className="header">
             <img className="winamp-bar" src="../winamp.png"></img>
@@ -141,8 +147,8 @@ export default function Header() {
                 <TickerArea />
             </div>
 
-            <p className="kbps">192</p>
-            <p className="khz">44</p>
+            <p className="kbps">{kbps}</p>
+            <p className="khz">{khz}</p>
 
             <input
                 onChange={(e) => player.setVolume(e.target.value)}
@@ -182,19 +188,26 @@ export default function Header() {
                     className="pause"
                     onClick={() => {
                         player.pause();
-                        setIsPlaying(false);
                     }}
                 ></div>
                 <div
                     className="stop"
                     onClick={() => {
+                        setTrackTime(0);
                         player.kill();
-                        setIsPlaying(false);
-                        console.log("TrackTime", trackTime);
+                        setKbps("-");
+                        setKhz("-");
                     }}
                 ></div>
                 <div className="next" onClick={() => next(tracks, index)}></div>
                 <div className="shuffle" onClick={() => shuffle(tracks)}></div>
+                <a
+                    href={permalinkUrl || "https://soundcloud.com"}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img className="sc" src="../soundcloud.png"></img>
+                </a>
             </div>
         </div>
     );
