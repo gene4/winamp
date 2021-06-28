@@ -1,15 +1,25 @@
-import { useSelector } from "react-redux";
-// import { useEffect } from "react";
+export default function Animation({ isAnimation, trackTime }) {
+    // console.log("trackTime", trackTime);
 
-export default function Animation() {
-    const artwork = useSelector((state) => state.artwork_url);
-    // const spinner =
-    //     "https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif";
-    // const player = useSelector((state) => state.player);
-
+    const millisToMinutesAndSeconds = (millis) => {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return (
+            (minutes < 10 ? "0" : "") +
+            minutes +
+            ":" +
+            (seconds < 10 ? "0" : "") +
+            seconds
+        );
+    };
     return (
         <div className="animation">
-            {artwork && <img className="artwork" src={artwork}></img>}
+            <div className="timer">
+                {" "}
+                {trackTime > 0 && <p>{millisToMinutesAndSeconds(trackTime)}</p>}
+            </div>
+
+            {isAnimation && <img src="https://j.gifs.com/yEGl9X.gif"></img>}
         </div>
     );
 }

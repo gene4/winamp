@@ -101,6 +101,52 @@ app.post("/login", (req, res) => {
         });
 });
 
+app.get("/playlist/:id", function (req, res) {
+    db.getPlaylist(req.params.id)
+        .then((result) => {
+            res.json(result.rows);
+        })
+        .catch((e) => {
+            console.log("error in getting playlist", e);
+            res.json({ success: false });
+        });
+});
+
+app.post("/insert/track", function (req, res) {
+    db.insertTrack(
+        req.body.trackId,
+        req.body.user,
+        req.body.title,
+        req.body.duration,
+        req.body.artwork_url,
+        req.body.permalink_url,
+        req.body.userId
+    )
+        .then((result) => {
+            res.json({
+                platlist: result.rows[0],
+                success: true,
+            });
+        })
+        .catch((e) => {
+            console.log("error in inserting track", e);
+            res.json({ success: false });
+        });
+});
+
+app.post("/delete/track", function (req, res) {
+    console.log("req.body in get delete track", req.body);
+    db.deleteTrack(req.body.trackId, req.session.userId)
+        .then((result) => {
+            console.log("deleted track", result.rows);
+            res.json({ success: true });
+        })
+        .catch((e) => {
+            console.log("error in getting playlist", e);
+            res.json({ success: false });
+        });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

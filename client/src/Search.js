@@ -24,7 +24,8 @@ export default function Search() {
         if (searchInput) {
             SC.get("/tracks", {
                 q: searchInput,
-                limit: 50,
+                downloadable: true,
+                limit: 51,
             })
                 .then(function (tracks) {
                     console.log("data", tracks);
@@ -71,7 +72,7 @@ export default function Search() {
     return (
         <div className="search">
             <div>
-                <p>search a track!</p>
+                <p>Search a track!</p>
                 <input
                     className="search-input"
                     onChange={(e) => setSearchInput(e.target.value)}

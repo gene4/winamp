@@ -1,8 +1,9 @@
-@import url("http://fonts.cdnfonts.com/css/sf-pixelate");
+@import url("http://fonts.cdnfonts.com/css/px-sans-nouveaux");
 
 body {
     background-color: ghostwhite;
-    font-family: "SF Pixelate", sans-serif;
+
+    font-family: Arial, Helvetica, sans-serif;
     color: rgb(0, 255, 0);
     font-size: 15px;
     letter-spacing: 1px;
@@ -34,12 +35,34 @@ body {
     display: flex;
 }
 .animation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 139px;
     height: 64px;
     background-color: black;
     position: relative;
     margin-left: 17px;
     margin-top: 10px;
+
+    overflow: hidden;
+}
+
+.animation p {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    font-family: "px sans nouveaux", sans-serif;
+}
+
+.timer {
+    width: 139px;
+}
+
+.animation img {
+    width: 139px;
+    height: 38px;
+    object-fit: fill;
 }
 
 .ticker-area {
@@ -47,11 +70,12 @@ body {
     height: 17px;
     background-color: black;
     margin-left: 7px;
-    margin-top: 13px;
+    margin-top: 11px;
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden;
 }
 
 .ticker-area p {
@@ -59,6 +83,8 @@ body {
     animation: ticker 10s infinite linear;
     position: absolute;
     left: 50%;
+    font-size: 10px;
+    font-family: "px sans nouveaux", sans-serif;
 }
 
 @keyframes ticker {
@@ -69,22 +95,32 @@ body {
 
 .kbps {
     position: relative;
-    top: -42px;
+    top: -38px;
     left: 167px;
     font-size: 10px;
+    width: 27px;
+    height: 18px;
+    margin: 0;
+    font-size: 8px;
+    font-family: "px sans nouveaux", sans-serif;
 }
 
 .khz {
+    width: 27px;
+    height: 18px;
     position: relative;
     font-size: 10px;
-    top: -61px;
-    left: 232px;
+    top: -56px;
+    left: 233px;
+    margin: 0;
+    font-size: 8px;
+    font-family: "px sans nouveaux", sans-serif;
 }
 
 .volume-bar {
     position: relative;
-    width: 90px;
-    top: -67px;
+    width: 230px;
+    top: -54px;
     left: 160px;
     height: 10px;
     -webkit-appearance: none;
@@ -123,8 +159,8 @@ body {
 
 .progress-bar {
     position: relative;
-    top: -40px;
-    left: -138px;
+    top: -29px;
+    left: -211px;
     width: 375px;
     -webkit-appearance: none;
     background: transparent;
@@ -146,7 +182,7 @@ body {
     position: relative;
     display: flex;
     margin-left: 26px;
-    top: -42px;
+    top: -30px;
     align-items: center;
     z-index: 2;
 }
@@ -233,13 +269,24 @@ body {
     background-repeat: no-repeat;
 }
 
-.eq {
+.middle-container {
     width: 410px;
     height: 173px;
     background-image: url("../eq.png");
     background-size: contain;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+}
+
+.big-screen {
+    background-color: black;
+    width: 390px;
+    height: 140px;
+    margin-left: 11px;
+    margin-top: 23px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .screen-container {
@@ -250,7 +297,19 @@ body {
     background-repeat: no-repeat;
 }
 
-.screen {
+.search::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 10px;
+}
+
+.search::-webkit-scrollbar-thumb {
+    background-color: rgba(226, 226, 226, 0.5);
+
+    opacity: 0.3;
+    border-radius: 5px;
+}
+
+.content {
     position: relative;
     width: 385px;
     height: 333px;
@@ -258,7 +317,6 @@ body {
     margin-top: 28px;
     background-color: black;
     overflow-y: auto;
-    padding: auto;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
 }
@@ -276,6 +334,29 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+}
+
+.add {
+    width: 30px;
+    height: 28px;
+    margin-left: 23px;
+    margin-bottom: 5px;
+}
+
+.add:active,
+.delete:active,
+.playlist-button:active {
+    background-color: black;
+    opacity: 0.3;
+}
+
+.delete {
+    width: 30px;
+    height: 28px;
+    margin-left: 13px;
+    margin-bottom: 5px;
 }
 
 .buttom-right {
@@ -285,71 +366,86 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.playlist-button {
+    width: 30px;
+    height: 28px;
+    margin-bottom: 5px;
+    margin-right: 25px;
 }
 
 .registration {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.search {
+.search,
+.playlist {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 385px;
     height: 333px;
-    margin-left: 15px;
-    margin-top: 28px;
     background-color: black;
     overflow-y: auto;
     overflow-x: hidden;
     padding: auto;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "PixelYourLife", sans-serif;
+
     letter-spacing: 1px;
 }
 
-.search div {
+.search div,
+.playlist div {
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background-color: black;
-    width: 370px;
+    width: 374px;
     height: 20px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
-.search div p {
+.search div p,
+.playlist div p {
     margin: 0;
 }
-
-/* .search::-webkit-scrollbar {
-    image-rendering: pixelated;
-    background-image: url("../scroll-bar.png");
-    height: 100%;
-}
-
-.search::-webkit-scrollbar-thumb {
-    background-image: url("../scroll-bar-button.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 45px;
-    width: 20px;
-} */
 
 .search-input {
     margin-left: 8px;
     border: none;
-    background-color: black;
-    border-bottom: 1px rgb(0, 255, 0) solid;
-    color: rgb(0, 255, 0);
-    font-size: 18px;
+    background-color: rgb(0, 255, 0);
+    color: black;
+    font-size: 14px;
+    border-radius: 2px;
+    height: 13px;
 }
 
 .tracks {
-    scroll-margin-top: 20px;
-    margin-top: 12px;
-    padding-left: 32px;
+    padding-left: 33px;
+    margin-top: 5px;
+}
+
+.duration {
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+li.track::marker {
+    width: 30px;
 }
 
 .track {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: visible;
     overflow-wrap: normal;
 }
 
@@ -363,9 +459,9 @@ input:focus {
 
 .artwork {
     image-rendering: pixelated;
-    width: 139px;
-    height: 64px;
-    object-fit: none;
+    height: 141px;
+    width: 168px;
+    object-fit: fill;
     border: hidden;
 }
 
@@ -439,4 +535,9 @@ input:-internal-autofill-selected {
     background-color: rgb(0, 0, 0);
 
     color: rgb(0, 255, 0);
+}
+
+.playlist-button {
+    position: relative;
+    right: 10px;
 }

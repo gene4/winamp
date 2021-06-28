@@ -1,5 +1,7 @@
 export default function reducers(state = {}, action) {
-    let newState = {};
+    let newState = {
+        isPlaylist: false,
+    };
 
     if (action.type == "UPDATE_TRACKS") {
         newState = {
@@ -32,7 +34,32 @@ export default function reducers(state = {}, action) {
             ...state,
             listElements: action.payload,
         };
+    } else if (action.type == "TOGGLE_PLAYLIST") {
+        newState = {
+            ...state,
+            isPlaylist: action.payload,
+        };
+    } else if (action.type == "GET_PLAYLIST") {
+        newState = {
+            ...state,
+            playlist: action.payload,
+        };
+    } else if (action.type == "INSERT_TRACK") {
+        newState = {
+            ...state,
+        };
+    } else if (action.type == "DELETE_TRACK") {
+        newState = {
+            ...state,
+            playlist: state.playlist.filter((track) => {
+                console.log("trackid", track);
+                if (track.track_id != action.payload) {
+                    return {
+                        ...track,
+                    };
+                }
+            }),
+        };
     }
-
     return newState;
 }

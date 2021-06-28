@@ -1,6 +1,6 @@
-import Animation from "./Animation";
 import TickerArea from "./TickerArea";
 import { useSelector, useDispatch } from "react-redux";
+import Animation from "./Animation";
 const secret = require("../../secrets.json").ClientId;
 var SC = require("soundcloud");
 import { useEffect, useState } from "react";
@@ -18,6 +18,7 @@ export default function Header() {
     const [khz, setKhz] = useState(`  -`);
     const [trackTime, setTrackTime] = useState(0);
     const [player, setPlayer] = useState();
+    const [isAnimation, setIsAnimation] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ export default function Header() {
                 SC.stream(`/tracks/${trackId}`).then(function (player) {
                     setPlayer(player);
                     player.play();
+                    setIsAnimation(true);
                     startCounting(player);
                     setKbps("128");
                     setKhz("96");
@@ -47,6 +49,7 @@ export default function Header() {
         [player]
     );
 
+    console.log("trackTime at header", trackTime);
     const startCounting = (player) => {
         const interval = setInterval(function () {
             setTrackTime(player.currentTime());
@@ -64,10 +67,13 @@ export default function Header() {
             SC.stream(`/tracks/${trackId}`).then(function (player) {
                 setPlayer(player);
                 player.play();
+                setIsAnimation(true);
                 return;
             });
         }
         player.play();
+        setIsAnimation(true);
+
         startCounting(player);
     };
 
@@ -78,6 +84,7 @@ export default function Header() {
         let newTrack = tracks[index + 1];
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
+            setIsAnimation(true);
             dispatch(
                 updateCurrentTrack(
                     index + 1,
@@ -98,6 +105,7 @@ export default function Header() {
         let newTrack = tracks[index - 1];
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
+            setIsAnimation(true);
             dispatch(
                 updateCurrentTrack(
                     index - 1,
@@ -118,6 +126,7 @@ export default function Header() {
         setBeckground(tracks.indexOf(randomTrack));
         SC.stream(`/tracks/${randomTrack.id}`).then(function (player) {
             setPlayer(player);
+            setIsAnimation(true);
             dispatch(
                 updateCurrentTrack(
                     tracks.indexOf(randomTrack),
@@ -143,7 +152,7 @@ export default function Header() {
         <div className="header">
             <img className="winamp-bar" src="../winamp.png"></img>
             <div className="top-upper-pannel">
-                <Animation />
+                <Animation isAnimation={isAnimation} trackTime={trackTime} />
                 <TickerArea />
             </div>
 
@@ -158,15 +167,6 @@ export default function Header() {
                 min="0"
                 max="1"
                 step="0.01"
-            ></input>
-            <input
-                className="pan-bar"
-                title="pan-bar"
-                type="range"
-                min="-1"
-                max="1"
-                step="0.01"
-                defaultValue="0"
             ></input>
             <input
                 onChange={(e) => player.seek(e.target.value)}
@@ -188,6 +188,7 @@ export default function Header() {
                     className="pause"
                     onClick={() => {
                         player.pause();
+                        setIsAnimation(false);
                     }}
                 ></div>
                 <div
@@ -195,17 +196,14 @@ export default function Header() {
                     onClick={() => {
                         setTrackTime(0);
                         player.kill();
+                        setIsAnimation(false);
                         setKbps("-");
                         setKhz("-");
                     }}
                 ></div>
                 <div className="next" onClick={() => next(tracks, index)}></div>
                 <div className="shuffle" onClick={() => shuffle(tracks)}></div>
-                <a
-                    href={permalinkUrl || "https://soundcloud.com"}
-                    target="_blank"
-                    rel="noreferrer"
-                >
+                <a href={permalinkUrl} target="_blank" rel="noreferrer">
                     <img className="sc" src="../soundcloud.png"></img>
                 </a>
             </div>
