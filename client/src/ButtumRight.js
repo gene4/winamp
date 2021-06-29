@@ -14,13 +14,12 @@ export default function ButtomRight() {
         return (
             (minutes < 10 ? "0" : "") +
             minutes +
-            ":" +
+            `  ` +
+            ` ` +
             (seconds < 10 ? "0" : "") +
             seconds
         );
     };
-
-    console.log("tracktime", trackTime);
 
     return (
         <div className="buttom-right">

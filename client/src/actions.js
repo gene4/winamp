@@ -67,6 +67,24 @@ export const togglePlaylist = async (isPlaylist) => {
     };
 };
 
+export const setIsScreen = async (isScreen) => {
+    isScreen = !isScreen;
+
+    return {
+        type: "SET_SCREEN",
+        payload: isScreen,
+    };
+};
+
+export const setShare = async (isShare) => {
+    isShare = !isShare;
+
+    return {
+        type: "SET_SHARE",
+        payload: isShare,
+    };
+};
+
 export const getPlaylist = async (userId) => {
     try {
         const playlist = await axios.get(`/playlist/${userId}`);

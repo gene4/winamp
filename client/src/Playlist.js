@@ -10,10 +10,12 @@ export default function Playlist() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (userId) {
-            dispatch(getPlaylist(userId));
-        }
-        dispatch(setListElements(document.getElementsByClassName("track")));
+        (async () => {
+            if (userId) {
+                await dispatch(getPlaylist(userId));
+            }
+            dispatch(setListElements(document.getElementsByClassName("track")));
+        })();
     }, []);
 
     const millisToMinutesAndSeconds = (millis) => {

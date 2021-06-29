@@ -1,6 +1,8 @@
 export default function reducers(state = {}, action) {
     let newState = {
         isPlaylist: false,
+        isScreen: false,
+        isShare: false,
     };
 
     if (action.type == "UPDATE_TRACKS") {
@@ -34,6 +36,11 @@ export default function reducers(state = {}, action) {
             ...state,
             trackTime: action.payload,
         };
+    } else if (action.type == "SET_SHARE") {
+        newState = {
+            ...state,
+            isShare: action.payload,
+        };
     } else if (action.type == "SET_LIST_ELEMENTS") {
         newState = {
             ...state,
@@ -43,6 +50,11 @@ export default function reducers(state = {}, action) {
         newState = {
             ...state,
             isPlaylist: action.payload,
+        };
+    } else if (action.type == "SET_SCREEN") {
+        newState = {
+            ...state,
+            isScreen: action.payload,
         };
     } else if (action.type == "GET_PLAYLIST") {
         newState = {

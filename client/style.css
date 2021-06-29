@@ -361,7 +361,9 @@ body {
 
 .add:active,
 .delete:active,
-.playlist-button:active {
+.playlist-button:active,
+.select:active,
+.share:active {
     background-color: black;
     opacity: 0.3;
 }
@@ -371,6 +373,31 @@ body {
     height: 28px;
     margin-left: 13px;
     margin-bottom: 5px;
+}
+
+.select {
+    width: 30px;
+    height: 28px;
+    margin-left: 13px;
+    margin-bottom: 5px;
+}
+
+.share {
+    width: 30px;
+    height: 28px;
+    margin-left: 13px;
+    margin-bottom: 5px;
+}
+
+.share-container p {
+    font-family: "px sans nouveaux", sans-serif;
+    text-align: center;
+}
+
+.share-buttons {
+    width: 380px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .buttom-right {
@@ -391,7 +418,9 @@ body {
 
 .buttom-timer {
     font-family: "px sans nouveaux", sans-serif;
-    font-size: 10px;
+    font-size: 8px;
+    margin-top: 20px;
+    margin-right: 26px;
 }
 
 .playlist-button {

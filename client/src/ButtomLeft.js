@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { insertTrack, deleteTrack } from "./actions";
+import { insertTrack, deleteTrack, setIsScreen, setShare } from "./actions";
 
 export default function ButtomLeft() {
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const trackId = useSelector((state) => state.trackId);
     const duration = useSelector((state) => state.duration);
@@ -10,6 +9,22 @@ export default function ButtomLeft() {
     const artwork_url = useSelector((state) => state.artwork_url);
     const permalink_url = useSelector((state) => state.permalink_url);
     const userId = useSelector((state) => state.userId);
+    const isScreen = useSelector((state) => state.isScreen);
+    const isShare = useSelector((state) => state.isShare);
+
+    const dispatch = useDispatch();
+
+    const toggleScreen = (isScreen) => {
+        console.log("in toggle screen");
+        dispatch(setIsScreen(isScreen));
+    };
+
+    const toggleShare = (isShare) => {
+        console.log("in toggle screen");
+        dispatch(setShare(isShare));
+    };
+
+    console.log("isScreen", isScreen);
 
     return (
         <div className="buttom-left">
@@ -33,6 +48,11 @@ export default function ButtomLeft() {
                 className="delete"
                 onClick={() => dispatch(deleteTrack(trackId))}
             ></div>
+            <div
+                onClick={() => toggleScreen(isScreen)}
+                className="select"
+            ></div>
+            <div onClick={() => toggleShare(isShare)} className="share"></div>
         </div>
     );
 }

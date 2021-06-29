@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import Share from "./Share";
 const secret = require("../../secrets.json").ClientId;
 var SC = require("soundcloud");
 
@@ -8,11 +9,13 @@ export default function Eq() {
     const trackId = useSelector((state) => state.trackId);
     const user = useSelector((state) => state.user);
     const title = useSelector((state) => state.title);
+    const isScreen = useSelector((state) => state.isScreen);
+    const isShare = useSelector((state) => state.isShare);
+    const permalink_url = useSelector((state) => state.permalink_url);
 
     const [purchase_url, setPurchase_url] = useState("");
     const [created_at, setcreated_at] = useState();
     const [playback_count, setPlayback_count] = useState();
-    const [isScreen, setIsScreen] = useState(false);
 
     useEffect(() => {
         SC.initialize({
@@ -33,14 +36,10 @@ export default function Eq() {
         }
     }, [trackId]);
 
-    const toggleScreen = () => {
-        setIsScreen(!isScreen);
-    };
-
     return (
         <div className="middle-container">
-            <div onClick={() => toggleScreen()} className="big-screen">
-                {!isScreen && (
+            <div className="big-screen">
+                {!isScreen && !isShare && (
                     <a href={purchase_url} target="_blank" rel="noreferrer">
                         {" "}
                         {artwork && (
@@ -48,7 +47,7 @@ export default function Eq() {
                         )}
                     </a>
                 )}
-                {isScreen && (
+                {isScreen && !isShare && (
                     <div className="info">
                         <a href={purchase_url} target="_blank" rel="noreferrer">
                             {" "}
@@ -68,6 +67,8 @@ export default function Eq() {
                         </div>
                     </div>
                 )}
+
+                {isShare && <Share permalink_url={permalink_url} />}
             </div>
         </div>
     );
