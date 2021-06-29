@@ -51,6 +51,13 @@ export const setListElements = async (listElements) => {
     };
 };
 
+export const setTimer = async (trackTime) => {
+    return {
+        type: "SET_TIMER",
+        payload: trackTime,
+    };
+};
+
 export const togglePlaylist = async (isPlaylist) => {
     isPlaylist = !isPlaylist;
 

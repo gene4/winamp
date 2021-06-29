@@ -12,15 +12,9 @@ export default function Playlist() {
     useEffect(() => {
         if (userId) {
             dispatch(getPlaylist(userId));
-            if (playlist) {
-                dispatch(
-                    setListElements(document.getElementsByClassName("track"))
-                );
-            }
         }
+        dispatch(setListElements(document.getElementsByClassName("track")));
     }, []);
-
-    console.log("playlist in playlist!!", playlist);
 
     const millisToMinutesAndSeconds = (millis) => {
         var minutes = Math.floor(millis / 60000);
@@ -29,12 +23,14 @@ export default function Playlist() {
     };
 
     const setBeckground = (index) => {
-        for (let i = 0; i < listElements.length; i++) {
-            const element = listElements[i];
-            element.classList.remove("blue");
-        }
+        if (listElements) {
+            for (let i = 0; i < listElements.length; i++) {
+                const element = listElements[i];
+                element.classList.remove("blue");
+            }
 
-        listElements[index].classList.add("blue");
+            listElements[index].classList.add("blue");
+        }
     };
 
     return (

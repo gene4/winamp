@@ -55,10 +55,6 @@ body {
     font-family: "px sans nouveaux", sans-serif;
 }
 
-.timer {
-    width: 139px;
-}
-
 .animation img {
     width: 139px;
     height: 38px;
@@ -297,14 +293,32 @@ body {
     background-repeat: no-repeat;
 }
 
-.search::-webkit-scrollbar {
+.info {
+    width: 390px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.info p {
+    font-family: "px sans nouveaux", sans-serif;
+    width: 186px;
+    white-space: normal;
+    margin: 5px;
+    padding-left: 10px;
+    font-size: 10px;
+}
+
+.search::-webkit-scrollbar,
+.playlist::-webkit-scrollbar {
     background-color: rgba(0, 0, 0, 0.5);
     width: 10px;
 }
 
-.search::-webkit-scrollbar-thumb {
+.search::-webkit-scrollbar-thumb,
+.playlist::-webkit-scrollbar-thumb {
     background-color: rgba(226, 226, 226, 0.5);
-
     opacity: 0.3;
     border-radius: 5px;
 }
@@ -368,7 +382,16 @@ body {
     image-rendering: pixelated;
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.timer {
+    width: 139px;
+}
+
+.buttom-timer {
+    font-family: "px sans nouveaux", sans-serif;
+    font-size: 10px;
 }
 
 .playlist-button {
@@ -419,10 +442,10 @@ body {
 
 .search-input {
     margin-left: 8px;
-    border: none;
-    background-color: rgb(0, 255, 0);
-    color: black;
-    font-size: 14px;
+    border: 1px rgb(0, 255, 0) solid;
+    background-color: black;
+    color: rgb(0, 255, 0);
+    font-size: 16px;
     border-radius: 2px;
     height: 13px;
 }

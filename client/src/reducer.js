@@ -16,7 +16,7 @@ export default function reducers(state = {}, action) {
             user: action.user,
             title: action.title,
             duration: action.duration,
-            artwork_url: action.artwork_url,
+            artwork_url: action.artwork_url || "../cat.png",
             permalink_url: action.permalink_url,
         };
     } else if (action.type == "SET_USER_ID") {
@@ -28,6 +28,11 @@ export default function reducers(state = {}, action) {
         newState = {
             ...state,
             player: action.payload,
+        };
+    } else if (action.type == "SET_TIMER") {
+        newState = {
+            ...state,
+            trackTime: action.payload,
         };
     } else if (action.type == "SET_LIST_ELEMENTS") {
         newState = {

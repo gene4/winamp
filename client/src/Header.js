@@ -14,8 +14,8 @@ export default function Header() {
     const permalinkUrl = useSelector((state) => state.permalink_url);
     const listElements = useSelector((state) => state.listElements);
 
-    const [kbps, setKbps] = useState(`  -`);
-    const [khz, setKhz] = useState(`  -`);
+    const [kbps, setKbps] = useState();
+    const [khz, setKhz] = useState();
     const [trackTime, setTrackTime] = useState(0);
     const [player, setPlayer] = useState();
     const [isAnimation, setIsAnimation] = useState(false);
@@ -49,7 +49,6 @@ export default function Header() {
         [player]
     );
 
-    console.log("trackTime at header", trackTime);
     const startCounting = (player) => {
         const interval = setInterval(function () {
             setTrackTime(player.currentTime());
@@ -141,12 +140,14 @@ export default function Header() {
     };
 
     const setBeckground = (index) => {
-        for (let i = 0; i < listElements.length; i++) {
-            const element = listElements[i];
-            element.classList.remove("blue");
-        }
+        if (listElements) {
+            for (let i = 0; i < listElements.length; i++) {
+                const element = listElements[i];
+                element.classList.remove("blue");
+            }
 
-        listElements[index].classList.add("blue");
+            listElements[index].classList.add("blue");
+        }
     };
     return (
         <div className="header">

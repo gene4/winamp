@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTracks, updateCurrentTrack, setListElements } from "./actions";
 
 export default function Search() {
-    const [searchInput, setSearchInput] = useState();
+    const [searchInput, setSearchInput] = useState("");
     const [error, setError] = useState(false);
 
     const listElements = useSelector((state) => state.listElements);
@@ -24,7 +24,6 @@ export default function Search() {
         if (searchInput) {
             SC.get("/tracks", {
                 q: searchInput,
-                downloadable: true,
                 limit: 51,
             })
                 .then(function (tracks) {
@@ -32,8 +31,9 @@ export default function Search() {
                     if (!abort) {
                         if (tracks.length == 0) {
                             console.log("elseifblock");
-                            // setError(true);
+                            setError(true);
                         } else {
+                            setError(false);
                             dispatch(
                                 setListElements(
                                     document.getElementsByClassName("track")
@@ -101,12 +101,13 @@ export default function Search() {
                             }}
                             key={index}
                         >
-                            {track.user.username} - {track.title}{" "}
+                            {" "}
+                            {track.user.username}- {track.title}{" "}
                             {millisToMinutesAndSeconds(track.duration)}
                         </li>
                     ))}
             </ol>
-            {error && <h1>No track found!</h1>}
+            {error && <p>No track found! </p>}
         </div>
     );
 }

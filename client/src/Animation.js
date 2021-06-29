@@ -1,5 +1,9 @@
+import { setTimer } from "./actions";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 export default function Animation({ isAnimation, trackTime }) {
-    // console.log("trackTime", trackTime);
+    const dispatch = useDispatch();
 
     const millisToMinutesAndSeconds = (millis) => {
         var minutes = Math.floor(millis / 60000);
@@ -12,6 +16,11 @@ export default function Animation({ isAnimation, trackTime }) {
             seconds
         );
     };
+
+    useEffect(() => {
+        dispatch(setTimer(trackTime));
+    }, [trackTime]);
+
     return (
         <div className="animation">
             <div className="timer">
