@@ -285,6 +285,14 @@ body {
     overflow: hidden;
 }
 
+.winamp-logo {
+    width: 130px;
+    height: 155px;
+    image-rendering: pixelated;
+    object-fit: cover;
+    margin-bottom: 50px;
+}
+
 .screen-container {
     width: 410px;
     height: 360px;
@@ -418,9 +426,15 @@ body {
 
 .buttom-timer {
     font-family: "px sans nouveaux", sans-serif;
-    font-size: 8px;
-    margin-top: 20px;
-    margin-right: 26px;
+    font-size: 7px;
+    margin-top: 19px;
+    margin-right: 32px;
+    letter-spacing: 2px;
+}
+
+.buttom-timer p {
+    background-color: black;
+    height: 10px;
 }
 
 .playlist-button {
@@ -428,10 +442,6 @@ body {
     height: 28px;
     margin-bottom: 5px;
     margin-right: 25px;
-}
-
-.registration {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .search,
@@ -475,7 +485,7 @@ body {
     background-color: black;
     color: rgb(0, 255, 0);
     font-size: 16px;
-    border-radius: 2px;
+    border-radius: 5px;
     height: 13px;
 }
 
@@ -520,6 +530,9 @@ input:focus {
 .registration,
 .login {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 385px;
     height: 333px;
     margin-left: 15px;
@@ -527,19 +540,30 @@ input:focus {
     background-color: black;
     overflow-y: auto;
     padding: auto;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "px sans nouveaux", sans-serif;
     letter-spacing: 2px;
 }
 
 form {
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    padding-left: 5px;
+
     display: flex;
     flex-direction: column;
     letter-spacing: 0px;
-    padding-top: 15px;
-    font-size: 20px;
+
+    font-size: 18px;
     font-weight: 100;
+    font-family: "px sans nouveaux", sans-serif;
+    height: 300px;
+}
+
+.login input::placeholder,
+form div input::placeholder {
+    font-family: "px sans nouveaux", sans-serif;
+    color: rgb(0, 255, 0);
+    font-size: 14px;
 }
 
 form p {
@@ -549,6 +573,7 @@ form p {
 form div,
 p.member {
     margin-top: 8px;
+    font-size: 12px;
 }
 
 form div {
@@ -564,16 +589,20 @@ form div input,
     border-bottom: 1px rgb(0, 255, 0) solid;
     color: rgb(0, 255, 0);
     width: 200px;
+    font-family: "px sans nouveaux", sans-serif;
+    text-align: center;
+    font-size: 14px;
 }
 
 form button {
+    font-family: "px sans nouveaux", sans-serif;
     cursor: pointer;
     width: 70px;
     border: none;
     background-color: black;
-    text-align: left;
+    text-align: center;
     color: rgb(0, 255, 0);
-    font-size: 20px;
+    font-size: 16px;
     padding: 0;
     margin-top: 8px;
 }

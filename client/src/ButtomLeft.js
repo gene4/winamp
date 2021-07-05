@@ -24,8 +24,6 @@ export default function ButtomLeft() {
         dispatch(setShare(isShare));
     };
 
-    console.log("isScreen", isScreen);
-
     return (
         <div className="buttom-left">
             <div

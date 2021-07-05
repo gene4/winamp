@@ -39,35 +39,34 @@ export default function Login() {
     };
     return (
         <div className="login">
-            {error && <p>Oupsi! Something went wrong, try again.</p>}
-
             <form onSubmit={(event) => handleLogin(event)}>
-                <p>1. login</p>
+                <p>please login!</p>
                 <div>
-                    <label>2. email</label>
                     <input
+                        placeholder="email"
                         name={"email"}
                         type={"email"}
                         onChange={handleChange}
                     />
                 </div>
                 <div>
-                    <label>3. password</label>
                     <input
+                        placeholder="password"
                         name={"password"}
                         type={"password"}
                         onChange={handleChange}
                     />
                 </div>
-                <button type={"submit"}>4. login</button>
+                <button type={"submit"}>login!</button>
                 <p className="member">
-                    5. click{" "}
+                    click{" "}
                     <Link className="here" to="/">
                         {" "}
                         here
                     </Link>{" "}
                     to register!
                 </p>
+                {error && <p>Oupsi! Something went wrong, try again.</p>}
             </form>
         </div>
     );

@@ -27,10 +27,8 @@ export default function Search() {
                 limit: 51,
             })
                 .then(function (tracks) {
-                    console.log("data", tracks);
                     if (!abort) {
                         if (tracks.length == 0) {
-                            console.log("elseifblock");
                             setError(true);
                         } else {
                             setError(false);

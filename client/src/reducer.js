@@ -69,7 +69,6 @@ export default function reducers(state = {}, action) {
         newState = {
             ...state,
             playlist: state.playlist.filter((track) => {
-                console.log("trackid", track);
                 if (track.track_id != action.payload) {
                     return {
                         ...track,

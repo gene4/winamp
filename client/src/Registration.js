@@ -44,34 +44,40 @@ export default function Registration() {
             {error && <p>Oupsi! Something went wrong, try again.</p>}
 
             <form onSubmit={(event) => handleSubmit(event)}>
-                <p>1. please register!</p>
+                <p>please register!</p>
                 <div>
-                    <label>2. first name</label>
-                    <input name={"firstName"} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>3. last name</label>
-                    <input name={"lastName"} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>4. email</label>
                     <input
+                        placeholder="first name"
+                        name={"firstName"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        placeholder="last name"
+                        name={"lastName"}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        placeholder="email"
                         name={"email"}
                         type={"email"}
                         onChange={handleChange}
                     />
                 </div>
                 <div>
-                    <label>5. password</label>
                     <input
+                        placeholder="password"
                         name={"password"}
                         type={"password"}
                         onChange={handleChange}
                     />
                 </div>
-                <button type={"submit"}>6. register!</button>
+                <button type={"submit"}>register!</button>
                 <p className="member">
-                    7. already a member?! click{" "}
+                    already a member?! click{" "}
                     <Link className="here" to="/login">
                         here
                     </Link>{" "}

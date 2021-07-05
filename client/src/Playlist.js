@@ -15,6 +15,7 @@ export default function Playlist() {
                 await dispatch(getPlaylist(userId));
             }
             dispatch(setListElements(document.getElementsByClassName("track")));
+            console.log("listElements", listElements);
         })();
     }, []);
 

@@ -15,6 +15,7 @@ export default function Header() {
     const listElements = useSelector((state) => state.listElements);
 
     const [kbps, setKbps] = useState();
+    const [volume, setVolume] = useState(1);
     const [khz, setKhz] = useState();
     const [trackTime, setTrackTime] = useState(0);
     const [player, setPlayer] = useState();
@@ -39,6 +40,7 @@ export default function Header() {
                     setPlayer(player);
                     player.play();
                     setIsAnimation(true);
+                    player.setVolume(volume);
                     startCounting(player);
                     setKbps("128");
                     setKhz("96");
@@ -67,12 +69,13 @@ export default function Header() {
                 setPlayer(player);
                 player.play();
                 setIsAnimation(true);
+                player.setVolume(volume);
                 return;
             });
         }
         player.play();
         setIsAnimation(true);
-
+        player.setVolume(volume);
         startCounting(player);
     };
 
@@ -84,6 +87,7 @@ export default function Header() {
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
             setIsAnimation(true);
+            player.setVolume(volume);
             dispatch(
                 updateCurrentTrack(
                     index + 1,
@@ -105,6 +109,7 @@ export default function Header() {
         SC.stream(`/tracks/${newTrack.id}`).then(function (player) {
             setPlayer(player);
             setIsAnimation(true);
+            player.setVolume(volume);
             dispatch(
                 updateCurrentTrack(
                     index - 1,
@@ -122,10 +127,10 @@ export default function Header() {
         player.kill();
         setTrackTime(0);
         const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-        setBeckground(tracks.indexOf(randomTrack));
         SC.stream(`/tracks/${randomTrack.id}`).then(function (player) {
             setPlayer(player);
             setIsAnimation(true);
+            player.setVolume(volume);
             dispatch(
                 updateCurrentTrack(
                     tracks.indexOf(randomTrack),
@@ -136,8 +141,11 @@ export default function Header() {
                     randomTrack.artwork_url
                 )
             );
+            setBeckground(tracks.indexOf(randomTrack));
         });
     };
+
+    
 
     const setBeckground = (index) => {
         if (listElements) {
@@ -161,7 +169,10 @@ export default function Header() {
             <p className="khz">{khz}</p>
 
             <input
-                onChange={(e) => player.setVolume(e.target.value)}
+                onChange={(e) => {
+                    player.setVolume(e.target.value);
+                    setVolume(e.target.value);
+                }}
                 className="volume-bar"
                 title="volume-bar"
                 type="range"
