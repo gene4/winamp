@@ -1,7 +1,7 @@
 import TickerArea from "./TickerArea";
 import { useSelector, useDispatch } from "react-redux";
 import Animation from "./Animation";
-const secret = require("../../secrets.json").ClientId;
+const secret = require("../../secrets.json").ClientId || process.env.ClientId;
 var SC = require("soundcloud");
 import { useEffect, useState } from "react";
 import { updateCurrentTrack } from "./actions";
@@ -145,8 +145,6 @@ export default function Header() {
         });
     };
 
-    
-
     const setBeckground = (index) => {
         if (listElements) {
             for (let i = 0; i < listElements.length; i++) {
@@ -157,6 +155,8 @@ export default function Header() {
             listElements[index].classList.add("blue");
         }
     };
+    console.log(typeof permalinkUrl);
+
     return (
         <div className="header">
             <img className="winamp-bar" src="../winamp.png"></img>

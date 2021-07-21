@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Share from "./Share";
-const secret = require("../../secrets.json").ClientId;
+const secret = require("../../secrets.json").ClientId || process.env.ClientId;
 var SC = require("soundcloud");
 
 export default function Eq() {

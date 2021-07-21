@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-const secret = require("../../secrets.json").ClientId;
+const secret = require("../../secrets.json").ClientId || process.env.ClientId;
 var SC = require("soundcloud");
 import { useDispatch, useSelector } from "react-redux";
 import { updateTracks, updateCurrentTrack, setListElements } from "./actions";
