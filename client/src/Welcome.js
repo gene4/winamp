@@ -1,5 +1,5 @@
 // Registration is a named export so we are importing with destructuring
-import Registration from "./registration.js";
+import Registration from "./Registration.js";
 import { HashRouter, Route } from "react-router-dom";
 import Login from "./Login";
 
