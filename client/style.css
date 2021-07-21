@@ -270,7 +270,7 @@ body {
     height: 173px;
     background-image: url("../eq.png");
     background-size: contain;
-    background-repeat: no-repeat;
+    background-repeat: round;
     image-rendering: pixelated;
 }
 
