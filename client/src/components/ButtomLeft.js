@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { insertTrack, deleteTrack, setIsScreen, setShare } from "./actions";
+import { insertTrack, deleteTrack, setIsScreen, setShare } from "../actions";
 
 export default function ButtomLeft() {
     const user = useSelector((state) => state.user);
@@ -15,12 +15,10 @@ export default function ButtomLeft() {
     const dispatch = useDispatch();
 
     const toggleScreen = (isScreen) => {
-        console.log("in toggle screen");
         dispatch(setIsScreen(isScreen));
     };
 
     const toggleShare = (isShare) => {
-        console.log("in toggle screen");
         dispatch(setShare(isShare));
     };
 

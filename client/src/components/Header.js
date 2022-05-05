@@ -1,10 +1,12 @@
 import TickerArea from "./TickerArea";
 import { useSelector, useDispatch } from "react-redux";
 import Animation from "./Animation";
-const secret = require("../../secrets.json").ClientId || process.env.ClientId;
-var SC = require("soundcloud");
 import { useEffect, useState } from "react";
-import { updateCurrentTrack } from "./actions";
+import { updateCurrentTrack } from "../actions";
+
+const secret =
+    require("../../../secrets.json").ClientId || process.env.ClientId;
+const SC = require("soundcloud");
 
 export default function Header() {
     const tracks = useSelector((state) => state.tracks);
@@ -155,7 +157,6 @@ export default function Header() {
             listElements[index].classList.add("blue");
         }
     };
-    console.log(typeof permalinkUrl);
 
     return (
         <div className="header">

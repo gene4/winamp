@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Share from "./Share";
-const secret = require("../../secrets.json").ClientId || process.env.ClientId;
+const secret =
+    require("../../../secrets.json").ClientId || process.env.ClientId;
 var SC = require("soundcloud");
 
 export default function Eq() {
@@ -41,7 +42,6 @@ export default function Eq() {
             <div className="big-screen">
                 {!isScreen && !isShare && (
                     <a href={purchase_url} target="_blank" rel="noreferrer">
-                        {" "}
                         {artwork && (
                             <img className="artwork" src={artwork}></img>
                         )}
@@ -50,7 +50,6 @@ export default function Eq() {
                 {isScreen && !isShare && (
                     <div className="info">
                         <a href={purchase_url} target="_blank" rel="noreferrer">
-                            {" "}
                             {artwork && (
                                 <img
                                     width="100"

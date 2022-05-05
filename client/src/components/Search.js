@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-const secret = require("../../secrets.json").ClientId || process.env.ClientId;
-var SC = require("soundcloud");
 import { useDispatch, useSelector } from "react-redux";
-import { updateTracks, updateCurrentTrack, setListElements } from "./actions";
+import { updateTracks, updateCurrentTrack, setListElements } from "../actions";
+
+const secret =
+    require("../../../secrets.json").ClientId || process.env.ClientId;
+const SC = require("soundcloud");
 
 export default function Search() {
     const [searchInput, setSearchInput] = useState("");

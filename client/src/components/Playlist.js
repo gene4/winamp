@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getPlaylist, updateCurrentTrack, setListElements } from "./actions";
+import { getPlaylist, updateCurrentTrack, setListElements } from "../actions";
 
 export default function Playlist() {
     const playlist = useSelector((state) => state.playlist);

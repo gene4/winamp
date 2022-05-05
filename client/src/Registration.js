@@ -1,5 +1,5 @@
 import axios from "./axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Registration() {
@@ -7,7 +7,6 @@ export default function Registration() {
     const [userData, setUserData] = useState();
 
     const handleChange = (event) => {
-        console.log("CHANGE", event.target.name, event.target.value);
         setUserData({
             ...userData,
             [event.target.name]: event.target.value,
@@ -15,13 +14,10 @@ export default function Registration() {
     };
 
     const handleSubmit = (event) => {
-        console.log("SUBMIT", userData);
-
         event.preventDefault();
         axios
             .post("/register", userData)
             .then(({ data }) => {
-                console.log("data", data);
                 if (data.success === false) {
                     setError({
                         error: true,
@@ -32,7 +28,6 @@ export default function Registration() {
             })
             .catch((err) => {
                 console.log("error in registration", err);
-                // Update the erro in the state here.
                 setError({
                     error: true,
                 });

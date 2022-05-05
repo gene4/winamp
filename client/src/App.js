@@ -1,10 +1,10 @@
 import axios from "./axios";
 import { useEffect } from "react";
-import Header from "./Header";
-import Eq from "./Eq";
-import Screen from "./Screen";
-import ButtomLeft from "./ButtomLeft";
-import ButtomRight from "./ButtumRight";
+import Header from "./components/Header";
+import Eq from "./components/Eq";
+import Screen from "./components/Screen";
+import ButtomLeft from "./components/ButtomLeft";
+import ButtomRight from "./components/ButtumRight";
 import { useDispatch } from "react-redux";
 import { setUserId } from "./actions";
 
@@ -18,13 +18,10 @@ export default function App() {
     }, []);
 
     return (
-        <div className="winamp">
+        <div className="app">
             <Header />
             <Eq />
-            <div className="screen-container">
-                <Screen />
-            </div>
-
+            <Screen />
             <div className="buttom-panel">
                 <ButtomLeft />
                 <ButtomRight />
